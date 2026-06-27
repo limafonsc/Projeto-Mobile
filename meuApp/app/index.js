@@ -1,5 +1,6 @@
-import Onze from '../screens/Onze';
+import React from 'react';
+import RootLayout from './_layout';
 
 export default function App() {
-    return <Onze />;
+  return <RootLayout />;
 }

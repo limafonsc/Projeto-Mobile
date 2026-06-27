@@ -1,9 +1,8 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from '@react-navigation/native';
 
 export default function Onze() {
-    const navigation = useNavigation(); 
     return (
+        
         <View style={styles.container}>
             <View style={styles.moldura}>
                 
@@ -15,34 +14,34 @@ export default function Onze() {
                 <Text style={styles.titulo}>HOME</Text>
 
                 <View style={styles.gradeBotoes}>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Um')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Um</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Dois')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Dois</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Tres')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Três</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Quatro')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Quatro</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Cinco')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Cinco</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Seis')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Seis</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Sete')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Sete</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Oito')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Oito</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Nove')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Nove</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Dez')}>
+                    <TouchableOpacity style={styles.botao}>
                         <Text style={styles.textoBotao}>Dez</Text>
                     </TouchableOpacity>
                 </View>
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     botao: {
-        backgroundColor: '#a1a1a1',
+        backgroundColor: '#f6ae05',
         width: '47%',
         paddingVertical: 10,
         borderRadius: 4,
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     textoBotao: {
-        color: '#fff',
+        color: '#000000',
         fontWeight: 'bold',
         fontSize: 14,
     }
