@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: rgb(165, 165, 165);
+        }
+        h2 {
+            color: white;
+            margin-top: 5px;
+        }
+        form {
+            background-color: rgb(80, 93, 85);
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            
+        }
+        div {
+            overflow-x: auto;
+        }
+        table {
+            width: 600px;
+            background-color: rgb(203, 221, 212);
+            margin: auto;
+            margin-bottom: 5px;
+            border-radius: 10px;
+        }
+        tr:nth-child(2n) {
+            background-color: rgb(229, 235, 231);
+        }
+        td:nth-child(3), input {
+        text-align: center;
+        margin: 5px;
+        }
+        .container {
+            background-color: rgb(231, 231, 231);
+            margin: 5px;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        button {
+            background-color: rgb(187, 217, 187);
+        }
+
+    </style>
+</head>
+<body>
+    <form action="">
+        <div>
+            <table id="tabelaproduto">
+                <colgroup>
+                    <col>
+                    <col>
+                    <col class="colunadiferente">
+                </colgroup>
+                <h2>Controle de Vendas</h2>
+                <tr>
+                    <th>
+                        Produto:
+                    </th>
+                    <th>
+                        Preço (em R$):
+                    </th>
+                    <th>
+                        Quantidade:
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="regata" id="iregata"><label for="iregata">Camiseta Regata</label>
+                    </td>
+                    <td>
+                        19.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdregata" id="iqtdregata" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="social" id="isocial"><label for="isocial">Camisa Social</label>
+                    </td>
+                    <td>
+                        59.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdsocial" id="iqtdsocial" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="blusa" id="iblusa"><label for="iblusa">Blusa</label>
+                    </td>
+                    <td>
+                        119.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdblusa" id="iqtdblusa" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="pullover" id="ipullover"><label for="ipullover">Pullover</label>
+                    </td>
+                    <td>
+                        39.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdpullover" id="iqtdpullover" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="sapato" id="isapato"><label for="isapato">Sapato</label>
+                    </td>
+                    <td>
+                        99.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdsapato" id="isapato" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="calca" id="icalca"><label for="icalca">Calça</label>
+                    </td>
+                    <td>
+                       38.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdcalca" id="iqtdcalca" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="meias" id="imeias"><label for="imeias">Meias</label>
+                    </td>
+                    <td>
+                        9.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdmeias" id="iqtdmeias" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="luvas" id="iluvas"><label for="iluvas">Luvas</label>
+                    </td>
+                    <td>
+                        24.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdluvas" id="iqtdluvas" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="jaqueta" id="ijaqueta"><label for="ijaqueta">Jaqueta</label>
+                    </td>
+                    <td>
+                        329.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdjaqueta" id="iqtdjaqueta" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="bermuda" id="ibermuda"><label for="ibermuda">Bermuda</label>
+                    </td>
+                    <td>
+                        69.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdbermuda" id="iqtdbermuda" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="chinelo" id="ichinelo"><label for="ichinelo">Chinelo</label>
+                    </td>
+                    <td>
+                        14.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdchinelo" id="iqtdchinelo" min="0" placeholder="0">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="bone" id="ibone"><label for="ibone">Boné</label>
+                    </td>
+                    <td>
+                        6.90
+                    </td>
+                    <td>
+                        <input type="number" name="qtdbone" id="iqtdbone" min="0" placeholder="0">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <h2>Forma de Pagamento:</h2>
+        
+        <div class="container">
+            <input type="radio" name="pagamento" id="iavista" value="avista" required><label for="iavista">À Vista</label>
+            <br>
+            <input type="radio" name="pagamento" id="iaprazo" value="aprazo" onclick="prazo()" required><label for="iaprazo">À Prazo</label>
+        
+        <br>
+        <p id="prazo"></p>
+        <button type="submit">Calcular valor</button>
+        <button type="reset" id="limpar">Limpar</button>
+        <p id="resultado">
+            O preço é de : R$
+        </p>
+    </div>
+    </form>
+</body>
+<script>
+        const formulario = document.querySelector('form');
+        formulario.onsubmit = function(event) {
+            event.preventDefault();
+
+    let total = 0;
+    
+    const tabela = document.getElementById('tabelaproduto');
+    const linha = tabela.getElementsByTagName('tr');
+
+    for (let i = 1; i < linha.length; i++) {
+        const coluna = linha[i].getElementsByTagName('td');
+        const checkbox = coluna[0].querySelector('input');
+        const preco = parseFloat(coluna[1].innerText);
+        const qtd = parseInt(coluna[2].querySelector('input').value);
+
+        if (checkbox.checked) {
+            total += preco * qtd;
+        }
+    }
+    const vista = document.getElementById('iavista');
+    let desc = total * 0.085;
+    let valor;
+    if (vista.checked) {
+        valor = total - desc;
+        total = `${total} (Total com desconto: R$ ${valor.toFixed(2)})`;
+    }
+    else {
+        const prazo = document.getElementById('iaprazo');
+        let taxa;
+        taxa = (0.06 * total)+6.90 * parseFloat(document.getElementById('iqtdparcela').value);
+        total += taxa;
+        valor = total / parseFloat(document.getElementById('iqtdparcela').value);
+        
+        if (valor < 10) {
+            total = 'O valor da parcela não pode ser inferior a R$10.00'
+        }
+        else {
+            total = `${parseFloat(document.getElementById('iqtdparcela').value)}x de R$ ${valor.toFixed(2)} (Total: R$ ${total.toFixed(2)})`;
+        }
+        }
+    document.getElementById('resultado').innerHTML = `Total: R$ ${total}`
+    }
+
+    function prazo() {
+        document.getElementById('prazo').innerHTML = `<label for="iqtdparcela">Quantidade de Parcelas:</label>
+    <select name="qtdparcela" id="iqtdparcela" required>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>`
+    }
+    document.getElementById('limpar').addEventListener('click', function(){
+            document.getElementById('resultado').innerHTML = ''
+    })
+</script>
+</html>

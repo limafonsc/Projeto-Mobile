@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+            background: #006b2017;
+        }
+        main{
+            background-color: rgba(0, 131, 55, 0.589);
+            padding: 10px 20px 20px 20px;
+            text-align: center;
+            margin: auto 10px;
+            border-radius: 5px;
+            box-shadow: inset 0px -10px 15px 0px rgba(0, 0, 0, 0.141);
+        }
+        h1{
+            margin: 20px;
+        }
+        #listadealunos {
+            text-indent: 15px;
+            margin: 10px;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        label{
+            margin: 0px 5px;
+        }
+        input{
+            max-width: 110px;
+            width: 100%;
+            border-style: none;
+            border: solid 1.5px rgba(0, 0, 0, 0.495);
+            border-radius: 3.5px;
+            padding: 2px;
+        }
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: auto;
+            border: 1px solid #d6d6d6;
+        }
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            text-align: left; }
+        th {
+            background: #00000030;
+            color: #000000;
+        }
+        tr:nth-child(even){
+             background: #f2f2f2;
+            }
+        button {
+            background: rgba(0, 0, 0, 0.496);
+            color: #ffffff;
+            border-style: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 4px;
+            margin: 4px;
+        }
+        .primeirobotao{
+            padding: 6px;
+            margin-top: 20px;
+        }
+        section {
+            background-color: #0000000f;
+            padding: 10px;
+            margin: 15px;
+            max-width: 300px;
+            border-radius: 4px;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.201);
+        }
+        #idetalhes{
+            background-color: rgba(7, 126, 73, 0.207);
+            max-width: 450px;
+            border-radius: 5px;
+            margin: 15px;
+            padding: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Cadastrar aluno</h1>
+        <form method="post" onsubmit="event.preventDefault(); cadastrar();">
+            <label for="inome">Nome
+            <input type="text" name="nome" id="inome" required>
+            </label>
+            <label for="iidade">Idade
+            <input type="number" name="idade" id="iidade" min="0" required>
+            </label>
+            <label for="inota">Nota
+            <input type="number" name="nota" id="inota" max="10" min="0" step="0.1" required>
+            </label>
+            <br>
+            <button type="submit" class="primeirobotao">Finalizar</button>
+            <button type="reset" class="primeirobotao">Limpar</button>
+        </form>
+    </main>
+    
+    <div id="icabecadatabela">
+
+        </div>
+
+        <div id="idetalhes"></div>
+
+    <section>
+        <h2>Detalhes da turma</h2>
+        <p id="iqntdalunos">Número de alunos: 0</p>
+        <p id="imedia"></p>
+        <p id="iqtdaprovados"></p>
+        <p id="iqtdreprovados"></p>
+    </section>
+
+    <script src="javascript.js"></script>
+</body>
+</html>
+
+    

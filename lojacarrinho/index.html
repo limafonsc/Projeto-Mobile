@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <header>
+      <h2 id="h2header">Nossa loja</h2>
+    </header>
+
+    <main>
+        <h1 id="h1main">Nossos Produtos</h1>
+
+        <section id="containerfiltro" style="padding: 0 20px 20px 20px;">
+            <label for="selectFiltro">Filtrar por preço: </label>
+            <select id="selectFiltro">
+                <option value="todos">Todos os produtos</option>
+                <option value="ate50">Até R$ 50,00</option>
+                <option value="acima50">Acima de R$ 50,00</option>
+            </select>
+        </section>
+
+        <div class="containerloja">
+            
+            <section id="listaprodutos">
+
+                <div class="cardproduto">
+                    <img src="img/cameradigital.jpg" alt="Câmera" />
+                    <h2>Câmera Digital Canon R100</h2>
+                    <p>Câmera Mirrorless Canon EOS R100 + Lente RF-S 18-45mm</p>
+                    <h1>R$3750,90</h1>
+                    <button onclick="adicionarAoCarrinho(1)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/copo.webp" alt="Copo" />
+                    <h2>Copo Quencher Stanley</h2>
+                    <p>Copo Quencher Rose Quartz Stanley 1.18L</p>
+                    <h1>R$359,00</h1>
+                    <button onclick="adicionarAoCarrinho(2)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/fone.jpg" alt="Fone" />
+                    <h2>Fone Edifier W600BT</h2>
+                    <p>Edifier Fone de ouvido Bluetooth 5.1 - Cinza Escuro</p>
+                    <h1>R$152,90</h1>
+                    <button onclick="adicionarAoCarrinho(3)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/microfone.jpg" alt="Microfone" />
+                    <h2>Microfone Lapela</h2>
+                    <p>Microfone Lapela Profissional Premium Sem Fio Duplo</p>
+                    <h1>R$69,95</h1>
+                    <button onclick="adicionarAoCarrinho(4)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/caixadesom.jpg" alt="Caixa de Som" />
+                    <h2>JBL Go 4 Bluetooth</h2>
+                    <p>Caixa de Som JBL Go 4 Portátil À Prova D'água</p>
+                    <h1>R$69,95</h1>
+                    <button onclick="adicionarAoCarrinho(5)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/airtag.jpg" alt="AirTag" />
+                    <h2>Apple AirTag</h2>
+                    <p>Apple AirTag, pack de 4 (2ª geração)</p>
+                    <h1>R$999,99</h1>
+                    <button onclick="adicionarAoCarrinho(6)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/powerbank.webp" alt="Power Bank" />
+                    <h2>Power Bank Ugreen</h2>
+                    <p>Power Bank Ugreen 10000mah Usb C Portátil 30w</p>
+                    <h1>R$236,71</h1>
+                    <button onclick="adicionarAoCarrinho(7)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/ventosa.avif" alt="Ventosa" />
+                    <h2>Ventosa de Silicone</h2>
+                    <p>Ventosa de Silicone Gocase Rosa</p>
+                    <h1>R$19,90</h1>
+                    <button onclick="adicionarAoCarrinho(8)">Adicionar</button>
+                </div>
+
+                <div class="cardproduto">
+                    <img src="img/oculos.webp" alt="Óculos" />
+                    <h2>Ray-Ban META Wayfarer</h2>
+                    <p>RAY-BAN META WAYFARER - GEN 2</p>
+                    <h1>R$3499,00</h1>
+                    <button onclick="adicionarAoCarrinho(9)">Adicionar</button>
+                </div>
+            </section>
+
+            <aside id="carrinholateral">
+                <h2 style="margin-bottom: 15px;">Seu Carrinho</h2>
+
+                <div id="itenscarrinho"></div>
+
+                <div id="resumocarrinho">
+                    <h3>Total: R$ <span id="valortotal">0,00</span></h3>
+                    <button id="btnlimpar" onclick="limparCarrinho()">Limpar Carrinho</button>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

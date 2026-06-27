@@ -8,59 +8,150 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background-color: rgb(229, 234, 240);
+            background-color: white;
+            margin: auto;
         }
         main {
             margin: auto;
-            margin: 0px 80px;
-            max-width: ;
+            padding: 0px 3vw;
+            max-width: 700px;
+        }
+        h1 {
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 2.5em;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            text-shadow: 1.6px 2px 2px rgba(110, 116, 116, 0.507);
         }
         h2 {
+            text-align: center;
             background-color: rgb(164, 175, 182);
-            border-radius: 15px 15px 0px 0px;
+            border-radius: 10px 10px 0px 0px;
             margin-bottom: 0px;
             text-indent: 10px;
             color: rgb(39, 41, 46);
             padding: 10px;
         }
         #ih2 {
-            border-radius: 15px;
+            border-radius: 10px;
         }
         ul {
             background-color: rgb(207, 214, 221);
-            border-radius: 0px 0px 15px 15px;
+            border-radius: 0px 0px 8px 8px;
             margin-top: 0px;
             padding-top: 10px;
-            padding-bottom: 10px;
-            
+            padding-bottom: 10px;   
         }
         li {
             margin-left: 5px;
         }
-        
+        #iselect {
+            display: block;
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgb(164, 175, 182);
+            border-radius: 10px 10px 0px 0px;
+            margin-bottom: 0px;
+            text-indent: 10px;
+            color: rgb(39, 41, 46);
+            padding: 10px;
+            text-align: center;
+        }
+        section {
+            background-color: rgb(207, 214, 221);
+            border-radius: 10px 10px 8px 8px;
+            margin-top: 0px;
+            padding-bottom: 10px; 
+            text-align: center;
+        }
+        select {
+            margin-top: 10px; 
+            background-color: rgb(218, 225, 232);
+            padding: 8px;
+            text-align: center; 
+        }
+        input {
+            text-align: center;
+        }
+        #ienviar, #ilimpar {
+            padding: 5px 40px;
+            background-color: rgb(218, 225, 232);
+            color: rgb(39, 41, 46);
+            border: solid 1px rgba(1, 11, 31, 0.711);
+            border-radius: 5px;
+            margin: 3px;
+        }
+        #result {
+           width: 200px; 
+           background-color: white;
+           color: black;
+        }
+
+        form {
+            background-color: rgb(234, 239, 244);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        #saida1, #saida2,#saida3, #saida4 {
+            text-align: right;
+            margin: 0;
+        }
+        output {
+            margin: 0;
+            padding: 10px;
+            background-color: rgb(255, 255, 255);
+            color: rgb(114, 134, 139);
+            border-radius: 5px;
+        }
+        .resultados {
+            color: black;
+        }
+        button, #botao {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        button {
+            margin-left: 5px;
+            margin-right: 5px;
+            background-color: rgb(231, 237, 241);
+            border: solid 1px rgb(168, 177, 186);
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.386);
+        }
     </style>
 </head>
 <body>
     <main>
         <h1>Cálculos</h1>
         <form method="get">
-            <h2>Digite um número para calcular seu(sua):</h2>
-            <ul>
-                <li>Dobro</li>
-                <li>Triplo</li>
-                <li>Quádruplo</li>
-                <li>Quíntuplo</li>
-                <li>Sêxtuplo</li>
-                <li>Quadrado</li>
-                <li>Cubo</li>
-                <li>Quarta Potência</li>
-                <li>Quinta Potência</li>
-                <li>Sexta Potência</li>
-            </ul>
+            <p>
+            <section>
+            <label for="icalc1" id="iselect">Digite um número para calcular seu(sua):</label>
+            
+                <select name="calc" id="icalc1" required>
+                    <option value="" selected disabled>Escolha</option>
+                    <option value="dobro" id="idobro">Dobro</option>
+                    <option value="triplo">Triplo</option>
+                    <option value="quadruplo">Quádruplo</option>
+                    <option value="quintuplo">Quíntuplo</option>
+                    <option value="sextuplo">Sêxtuplo</option>
+                    <option value="quadrado">Quadrado</option>
+                    <option value="cubo">Cubo</option>
+                    <option value="quartapot">Quarta Potência</option>
+                    <option value="quintapot">Quinta Potência</option>
+                    <option value="sextapot">Sexta Potência</option>
+                </select>
+            </section>
+            </p>
             <p>
                 <label for="inumero1">Digite o primeiro número: </label>
                 <input type="number" name="numero1" id="inumero1"
-                placeholder="Número">
+                placeholder="Número" required> <p id="saida1"><output>Resultado aqui</output></p>
             </p>
             <h2>Digite mais dois número para calcular: </h2>
             <ul>
@@ -69,12 +160,12 @@
             <p>
                 <label for="inumero2">Digite o segundo número: </label>
                 <input type="number" name="numero2" id="inumero2"
-                placeholder="Número">
+                placeholder="Número" required> 
             </p>
             <p>
                 <label for="inumero3">Digite o terceiro número: </label>
                 <input type="number" name="numero3" id="inumero3"
-                placeholder="Número">
+                placeholder="Número" required> <p id="saida2"><output>Resultado aqui</output></p>
             </p>
             <h2>Digite mais um número para calcular: </h2>
             <ul>
@@ -83,19 +174,105 @@
             <p>
                 <label for="inumero4">Digite o quarto número: </label>
                 <input type="number" name="numero4" id="inumero4"
-                placeholder="Número">
+                placeholder="Número" required> <p id="saida3"><output>Resultado aqui</output></p>
             </p>
             <h2 id="ih2">Digite um número para verificar se ele é ímpar ou par</h2>
             <p>
-                <label for="inumeroip">Digit o número: </label>
+                <label for="inumeroip">Digite o número: </label>
                 <input type="number" name="numeroip" id="inumeroip"
-                placeholder="Número">
+                placeholder="Número" required> <p id="saida4"><output>Resultado aqui</output></p>
             </p>
+            <p id="botao">
+                <button type="submit">Calcular</button>
+                <button type="reset">Limpar</button>
+            </p>
+
         </form>
     </main>
 
     <script>
+        const formulario = document.querySelector('form');
+        formulario.onsubmit = function(event) {
+            event.preventDefault();
+        
+            const calc1 = document.getElementById('icalc1').value;
 
+            const num1 = parseInt(document.getElementById('inumero1').value);
+
+            let result1;
+
+            switch(calc1) {
+                case 'dobro':
+                    result1 = num1 * 2;
+                    break;
+                case 'triplo':
+                    result1 = num1 * 3;
+                    break;
+                case 'quadruplo':
+                    result1 = num1 * 4;
+                    break;
+                case 'quintuplo':
+                    result1 = num1 * 5;
+                    break;
+                case 'sextuplo':
+                    result1 = num1 * 6;
+                    break;
+                case 'quadrado':
+                    result1 = num1 ** 2;
+                    break;
+                case 'cubo':
+                    result1 = num1 ** 3;
+                    break;
+                case 'quartapot':
+                    result1 = num1 **4;
+                    break;
+                case 'quintapot':
+                    result1 = num1 ** 5;
+                    break;
+                case 'sextapot':
+                    result1 = num1 ** 6;
+            }
+
+            const num2 = parseInt(document.getElementById('inumero2').value);
+
+            const num3 = parseInt(document.getElementById('inumero3').value);
+
+            let delta = (num2**2)-(4*num1*num3);
+
+            let result2;
+            let x1, x2;
+            if (num1 === 0) {
+                result2 = `<output class = "resultados"> O coeficiente "A" (primeiro número) não pode ser 0 </output>`
+            }
+            else if (delta < 0) {
+                result2 = '<output class = "resultados"> A equação não tem raízes reais </output>'
+            }
+            else {
+                result2 = `<output> ∆ = <output class = "resultados">${(num2**2)-(4*num1*num3)}</output>, X1 = <output class = "resultados">${(-num2+(delta**0.5))/(2*num1)}</output>,
+                X2 = <output class = "resultados">${(-num2-(delta**0.5))/(2*num1)}</output></output>`
+                
+            }
+            
+            const num4 = parseInt(document.getElementById('inumero4').value);
+            
+            let media = (num1 + num2 + num3 + num4)/4;
+
+            const numip = parseInt(document.getElementById('inumeroip').value);
+
+            let resultip;
+            if (numip % 2 == 0) {
+                resultip = 'Par'
+            }
+            else {
+                resultip = 'Ímpar'
+            }
+            
+            saida1.innerHTML = `<output> O resultado é: <output class = "resultados">${result1}</output> </output>`;
+            saida2.innerHTML = result2;
+            saida3.innerHTML = `<output> O resultado é: <output class = "resultados">${media}</output> </output>`;
+            saida4.innerHTML = `<output> O resultado é:<output class = "resultados"> ${resultip} </output> </output>`;
+            
+        }
     </script>
     
 </body>
