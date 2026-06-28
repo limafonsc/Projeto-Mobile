@@ -1,6 +1,6 @@
 import React from 'react';
-import RootLayout from './_layout';
+import Lista3Ex8 from '../screens/lista3Ex8';
 
 export default function App() {
-  return <RootLayout />;
+  return <Lista3Ex8 />;
 }

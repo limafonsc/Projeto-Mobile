@@ -1,0 +1,98 @@
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Image, Alert, TouchableOpacity } from "react-native"; 
+import * as ImagePicker from "expo-image-picker";
+import { MaterialIcons } from '@expo/vector-icons'; 
+
+export default function CameraComponent() {
+  const [image, setImage] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const cameraStatus = await ImagePicker.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === "granted");
+
+      const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      setHasGalleryPermission(galleryStatus.status === "granted");
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    if (hasGalleryPermission === false) {
+      Alert.alert("Permissão necessária", "Sem permissão para acessar a galeria de fotos");
+      return;
+    }
+
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.All,
+    allowsEditing: true,
+    quality: 1,
+});
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  const takePhoto = async () => {
+    if (hasCameraPermission === false) {
+      Alert.alert("Permissão necessária", "Sem permissão para acessar a câmera");
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={pickImage} style={styles.botao}>
+          <MaterialIcons name="photo" size={30} color="deepskyblue" />
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={takePhoto} style={styles.botao}>
+          <MaterialIcons name="photo-camera" size={30} color="deepskyblue" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        {image && <Image source={{ uri: image }} style={styles.image} />}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#222",
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end', 
+    paddingTop: 40,           
+    paddingHorizontal: 15,
+  },
+  botao: {
+    marginLeft: 15,           
+    padding: 5,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderRadius: 10, 
+  },
+});
