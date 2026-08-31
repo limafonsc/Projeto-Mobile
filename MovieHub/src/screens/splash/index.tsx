@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { styles } from "./styles";
 
-export default function login() {
+export default function Splash() {
     return (
         <View style={styles.body}>
             <View style={styles.container}>
