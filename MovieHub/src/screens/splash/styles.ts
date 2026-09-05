@@ -3,21 +3,54 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     body: {
         flex: 1,
-
+        backgroundColor: '#121214',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    background: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    },
+    backgroundDark: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#0b0b0bea',
     },
     container: {
-        flex: 1,
+        alignItems: 'center',
     },
     image: {
-        flex: 1,
+        width: 190,
+        resizeMode: 'contain',
+        marginBottom: -60,
+        marginTop: -100,
     },
     title: {
-        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 2,
     },
     textMovie: {
-        flex: 1,
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#ffffff',
     },
     textHub: {
-        flex: 1,
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#d30046',
+    },
+    descricao: {
+        flexDirection: 'column',
+        marginBottom: 24,
+    },
+    textDescricao: {
+        fontSize: 15,
+        color: 'rgb(177, 177, 177)',
+    },
+    loading: {
+        marginTop: 10,
     },
 });
