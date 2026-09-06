@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import { View, Text, Image, ActivityIndicator } from 'react-native';
+import { useNavigation } from 'expo-router';
 import { styles } from "./styles";
 
-export default function Splash({ navigation }: any) {
+export default function Splash() {
+
+    const navigation = useNavigation<any> ();
+
     useEffect(() => {
         const timer=setTimeout(() => {
-            navigation?.replace('Login');
+            navigation.navigate("./login/index");
         }, 3000);
 
         return () => clearTimeout(timer);
-    }, [navigation]);
+    }, []);
 
     return (
         <View style={styles.body}>
@@ -20,7 +24,7 @@ export default function Splash({ navigation }: any) {
             <View style={styles.backgroundDark}/>
             <View style={styles.container}>
                 <Image
-                   source={require('../../../assets/images/logoMovieHub.webp')}
+                    source={require('../../../assets/images/logoMovieHub.webp')}
                     style={styles.image}
                 />
                 <View style={styles.title}>
