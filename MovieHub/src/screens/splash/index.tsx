@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, Image, ActivityIndicator } from 'react-native';
-import { useNavigation } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { styles } from "./styles";
 
 export default function Splash() {
@@ -9,7 +9,7 @@ export default function Splash() {
 
     useEffect(() => {
         const timer=setTimeout(() => {
-            navigation.navigate("./login/index");
+            navigation.navigate("Login");
         }, 3000);
 
         return () => clearTimeout(timer);

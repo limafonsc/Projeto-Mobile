@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, ActivityIndicator } from "react-native";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
 
-export default function login() {
+export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [carregando, setCarregando] = useState(false);
