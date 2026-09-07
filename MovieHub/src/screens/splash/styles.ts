@@ -17,13 +17,14 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         height: '100%',
-        backgroundColor: '#0b0b0bea',
+        backgroundColor: 'rgba(0, 0, 0, 0.79)', 
     },
     container: {
         alignItems: 'center',
     },
     image: {
         width: 190,
+        height: 290,
         resizeMode: 'contain',
         marginBottom: -60,
         marginTop: -100,
@@ -49,6 +50,7 @@ export const styles = StyleSheet.create({
     textDescricao: {
         fontSize: 15,
         color: 'rgb(177, 177, 177)',
+        fontWeight: 500,
     },
     loading: {
         marginTop: 10,
