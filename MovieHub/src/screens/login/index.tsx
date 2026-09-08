@@ -104,24 +104,6 @@ export default function Login() {
                     </TouchableOpacity>
                 )}
 
-                <View style={styles.divisorContainer}>
-                    <View style={styles.divisorLine} />
-                    <Text style={styles.textDivisor}>ou continue com</Text>
-                    <View style={styles.divisorLine} />
-                </View>
-
-                <View style={styles.socialContainer}>
-                    <TouchableOpacity style={styles.socialButton} onPress={() => console.log('Google')}>
-                        <Ionicons name="logo-google" size={18} color="#ffffff" style={{ marginRight: 8 }} />
-                        <Text style={styles.textSocialButton}>Google</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.socialButton} onPress={() => console.log('Apple')}>
-                        <Ionicons name="logo-apple" size={18} color="#ffffff" style={{ marginRight: 8 }} />
-                        <Text style={styles.textSocialButton}>Apple</Text>
-                    </TouchableOpacity>
-                </View>
-
                 <TouchableOpacity
                 onPress={() => navigation.navigate('Cadastro')}
                 disabled={carregando}

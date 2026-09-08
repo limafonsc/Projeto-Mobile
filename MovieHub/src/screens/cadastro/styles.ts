@@ -6,8 +6,12 @@ export const styles = StyleSheet.create({
   body: {
     flex: 1,
     backgroundColor: '#121214',
+  },
+  scrollContainer: {
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 40,
   },
   background: {
     position: 'absolute',
@@ -46,6 +50,7 @@ export const styles = StyleSheet.create({
   },
   descricao: {
     marginBottom: 30,
+    alignItems: 'center',
   },
   textDescricao: {
     fontSize: 16,
@@ -59,6 +64,60 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.79)', 
     borderWidth: 1,
     borderColor: '#242021',
+  },
+  headerCadastroContainer: {
+    alignItems: 'center',
+    marginBottom: 24,
+    width: '100%',
+  },
+  headerCadastroTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 4,
+  },
+  textConta: {
+    color: '#d30046',
+  },
+  headerCadastroSubtitle: {
+    fontSize: 14,
+    color: '#a0a0a8',
+    marginBottom: 20,
+    fontWeight: '400',
+  },
+  avatarButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+  },
+  avatarCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#202024',
+    borderWidth: 1,
+    borderColor: '#323238',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  avatarBadgeCircle: {
+    position: 'absolute',
+    bottom: 2,
+    right: 2,
+    backgroundColor: '#d30046', 
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'rgba(0, 0, 0, 0.79)', 
+  },
+  avatarLabelText: {
+    fontSize: 12,
+    color: '#a0a0a8',
+    fontWeight: '500',
   },
   button: {
     backgroundColor: '#d30046', 
@@ -119,39 +178,5 @@ export const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     height: '100%',
-  },
-  optionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-    marginTop: -4,
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  checkbox: {
-    width: 16,
-    height: 16,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: '#52515A',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 6,
-  },
-  checkboxChecked: {
-    backgroundColor: '#d30046',
-    borderColor: '#d30046',
-  },
-  textOptions: {
-    color: '#a0a0a8',
-    fontSize: 13,
-  },
-  textEsqueciSenha: {
-    color: '#d30046', 
-    fontSize: 13,
-    fontWeight: '500',
   },
 });
