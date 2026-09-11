@@ -1,0 +1,147 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  containerLista: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 40,
+    marginBottom: 20,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+  buscaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#141415',
+    borderWidth: 1,
+    borderColor: '#323238',
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    height: 52,
+    marginHorizontal: 16,
+    marginBottom: 16,
+  },
+  buscaIcone: {
+    marginRight: 10,
+  },
+  inputBusca: {
+    flex: 1,
+    color: '#ffffff',
+    fontSize: 16,
+  },
+  btnFiltroOpcoes: {
+    marginLeft: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  containerFiltros: {
+    paddingHorizontal: 16,
+    alignItems: 'center',
+  },
+  btnFiltroItem: {
+    marginRight: 24,
+    alignItems: 'center',
+    position: 'relative',
+    paddingBottom: 6,
+  },
+  txtFiltroAtivo: {
+    color: '#d30046',
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  txtFiltroInativo: {
+    color: '#a0a0a8',
+    fontSize: 14,
+  },
+  linhaIndicadoraAtiva: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 2,
+    backgroundColor: '#d30046',
+    borderRadius: 1,
+  },
+  cardFilmeVertical: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    borderWidth: 1,
+    borderColor: '#242021',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+    alignItems: 'center',
+  },
+  capaFilmeVertical: {
+    width: 65,
+    height: 90,
+    borderRadius: 6,
+    backgroundColor: '#141415',
+  },
+  infoFilmeVertical: {
+    flex: 1,
+    marginLeft: 14,
+    justifyContent: 'center',
+  },
+  tituloFilmeVertical: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  detalhesFilmeVertical: {
+    color: '#a0a0a8',
+    fontSize: 13,
+    marginBottom: 6,
+  },
+  notaContainerVertical: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  notaFilmeVertical: {
+    color: '#a0a0a8',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  btnFavoritoCard: {
+    padding: 8,
+  },
+  menuInferiorContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#121214',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 70,
+    borderTopWidth: 1,
+    borderTopColor: '#242021',
+    paddingBottom: 10,
+  },
+  menuItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  menuItemTextoAtivo: {
+    color: '#d30046',
+    fontSize: 11,
+    marginTop: 4,
+    fontWeight: 'bold',
+  },
+  menuItemTextoInativo: {
+    color: '#a0a0a8',
+    fontSize: 11,
+    marginTop: 4,
+  },
+});
