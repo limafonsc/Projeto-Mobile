@@ -96,7 +96,8 @@ export default function Home() {
                 </View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.listaFilmes}>
                     {filmesRecentes.map((filme) => (
-                        <View key={filme.id} style={styles.cardFilme}>
+                        <TouchableOpacity key={filme.id} style={styles.cardFilme}
+                        onPress={() => navigation.navigate('DetalhesFilme')}>
                             <Image source={{ uri: filme.imagem }} style={styles.capaFilme} />
                             <Text style={styles.tituloFilme} numberOfLines={1}>{filme.titulo}</Text>
                             <Text style={styles.anoFilme}>{filme.ano}</Text>
@@ -104,18 +105,19 @@ export default function Home() {
                                 <Ionicons name="star" size={12} color="#FFD700" />
                                 <Text style={styles.notaFilme}> {filme.nota}</Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
 
                 {/* Favoritos */}
                 <View style={styles.secaoHeader}>
                     <Text style={styles.secaoTitulo}>Favoritos</Text>
-                    <TouchableOpacity><Text style={styles.txtVerTodos}>Ver todos</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Favoritos')}><Text style={styles.txtVerTodos} >Ver todos</Text></TouchableOpacity>
                 </View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.listaFilmes}>
                     {filmesFavoritos.map((filme) => (
-                        <View key={filme.id} style={styles.cardFilme}>
+                        <TouchableOpacity key={filme.id} style={styles.cardFilme}
+                        onPress={() => navigation.navigate('DetalhesFilme')}>
                             <Image source={{ uri: filme.imagem }} style={styles.capaFilme} />
                             <Text style={styles.tituloFilme} numberOfLines={1}>{filme.titulo}</Text>
                             <Text style={styles.anoFilme}>{filme.ano}</Text>
@@ -123,7 +125,7 @@ export default function Home() {
                                 <Ionicons name="star" size={12} color="#FFD700" />
                                 <Text style={styles.notaFilme}> {filme.nota}</Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
 
@@ -145,7 +147,7 @@ export default function Home() {
                     <Text style={styles.menuItemTextoInativo}>Filmes</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Favoritos')}>
                     <Ionicons name="heart-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Favoritos</Text>
                 </TouchableOpacity>

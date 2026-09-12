@@ -70,7 +70,8 @@ export default function Filmes() {
             {/* Lista Vertical de Filmes */}
             <ScrollView style={styles.containerLista} showsVerticalScrollIndicator={false}>
                 {listaDeFilmes.map((filme) => (
-                    <View key={filme.id} style={styles.cardFilmeVertical}>
+                    <TouchableOpacity key={filme.id} style={styles.cardFilmeVertical}
+                        onPress={() => navigation.navigate('DetalhesFilme')}>
                         <Image source={{ uri: filme.imagem }} style={styles.capaFilmeVertical} />
                         
                         <View style={styles.infoFilmeVertical}>
@@ -89,7 +90,7 @@ export default function Filmes() {
                                 color={filme.favoritado ? "#d30046" : "#a0a0a8"} 
                             />
                         </TouchableOpacity>
-                    </View>
+                    </TouchableOpacity>
                 ))}
 
                 {/* Espaço final para não cortar atrás da barra de tarefas */}
@@ -109,7 +110,7 @@ export default function Filmes() {
                     <Text style={styles.menuItemTextoAtivo}>Filmes</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('favoritos')}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Favoritos')}>
                     <Ionicons name="heart-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Favoritos</Text>
                 </TouchableOpacity>
