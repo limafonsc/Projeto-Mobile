@@ -12,6 +12,9 @@ import Pesquisa from '../screens/pesquisa';
 import Filtros from '../screens/filtros';
 import Generos from '../screens/generos';
 import Ordenacao from '../screens/ordenacao';
+import CompartilharFilme from '../screens/compartilharFilme';
+import Perfil from '../screens/perfil';
+import Configuracoes from '../screens/configuracoes';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +34,9 @@ export default function Routes() {
       <Stack.Screen name="Filtros" component={Filtros} />
       <Stack.Screen name="Generos" component={Generos} />
       <Stack.Screen name="Ordenacao" component={Ordenacao} />
+      <Stack.Screen name="CompartilharFilme" component={CompartilharFilme} />
+      <Stack.Screen name="Perfil" component={Perfil} />
+      <Stack.Screen name="Configuracoes" component={Configuracoes} />
     </Stack.Navigator>
   );
 }

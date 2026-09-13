@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
@@ -14,6 +14,10 @@ export default function Login() {
     const navigation = useNavigation<any> ();
 
     const lidarComLogin = () => {
+        if (!email || !senha) {
+            Alert.alert("Campos obrigatórios", "Por favor, preencha o e-mail e a senha para continuar.");
+            return;
+        }
         setCarregando(true);
         setTimeout(() => {
             setCarregando(false);

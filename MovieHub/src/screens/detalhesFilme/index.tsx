@@ -10,7 +10,7 @@ export default function DetalhesFilme() {
     const route = useRoute<any>();
     const { id } = route.params || { id: '3' };
 
-    const filme = filmesCadastrados.find(f => f.id === id) || filmesCadastrados[0];
+    const filme: any = filmesCadastrados.find(f => f.id === id) || filmesCadastrados[0];
 
     const lidarComExcluir = () => {
         Alert.alert(
@@ -37,7 +37,7 @@ export default function DetalhesFilme() {
 
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 <View style={styles.blocoTopo}>
-                    <Image source={{ uri: filme.imagem }} style={styles.capaFilme} />
+                    <Image source={ filme.imagem } style={styles.capaFilme} />
                     
                     <View style={styles.infoPrincipais}>
                         <Text style={styles.txtTituloFilme} numberOfLines={2}>{filme.titulo}</Text>
@@ -102,7 +102,7 @@ export default function DetalhesFilme() {
                         <Text style={styles.txtCardAcao}>Excluir</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.cardAcao}>
+                    <TouchableOpacity style={styles.cardAcao} onPress={() => navigation.navigate('CompartilharFilme')}>
                         <Ionicons name="share-social-outline" size={22} color="#007AFF" />
                         <Text style={styles.txtCardAcao}>Compartilhar</Text>
                     </TouchableOpacity>

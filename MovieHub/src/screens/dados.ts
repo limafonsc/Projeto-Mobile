@@ -16,17 +16,17 @@ export interface Filme {
 export const filmesCadastrados: Filme[] = [
     { 
         id: '1', 
-        titulo: 'Duna: Parte Dois', 
-        ano: '2024', 
-        duracao: '2h 46min',
+        titulo: 'Duna', 
+        ano: '2021', 
+        duracao: '2h 35min',
         genero: 'Ficção Científica', 
         nota: '4.5', 
         status: 'Assistido',
         diretor: 'Denis Villeneuve',
         dataAdicionado: '10/01/2026',
-        descricao: 'Paul Atreides se une a Chani e aos Fremen em uma guerra de vingança contra os conspiradores que destruíram sua família.',
+        descricao: 'Paul Atreides viaja para o planeta mais perigoso do universo para garantir o futuro de sua família e de seu povo enquanto forças malévolas disputam o controle da substância mais preciosa do mundo.',
         favoritado: false, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/duna.jpg') 
     },
     { 
         id: '2', 
@@ -40,7 +40,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '15/11/2025',
         descricao: 'O papel do físico J. Robert Oppenheimer no desenvolvimento da bomba atômica durante a Segunda Guerra Mundial.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/oppenheimer.jpg')
     },
     { 
         id: '3', 
@@ -54,7 +54,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '12/05/2024',
         descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca recém-descoberto para superar os limites das viagens espaciais humanas e conquistar as vastas distâncias interestelares.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/interestelar.webp')
     },
     { 
         id: '4', 
@@ -68,7 +68,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '20/02/2026',
         descricao: 'O patriarca envelhecido de uma dinastia do crime organizado transfere o controle de seu império clandestino para seu filho relutante.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/opoderosochefao.jpg')
     },
     { 
         id: '5', 
@@ -82,7 +82,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '05/05/2025',
         descricao: 'As presidências de Kennedy e Johnson, os eventos do Vietnã, Watergate e outras histórias históricas se desenrolam através da perspectiva de um homem do Alabama.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/forrest.jpg')
     },
     { 
         id: '6', 
@@ -96,7 +96,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '14/07/2025',
         descricao: 'Após mais de trinta anos de serviço como um dos principais aviadores da Marinha, Pete Mitchell está onde pertence, quebrando os limites como um piloto de teste corajoso.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/topgun.jpg')
     },
     { 
         id: '7', 
@@ -110,7 +110,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '01/03/2026',
         descricao: 'Um trabalhador de escritório insone e um fabricante de sabonetes despreocupado formam um clube de luta underground que evolui para algo muito maior.',
         favoritado: false, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/clube.jpg')
     },
     { 
         id: '8', 
@@ -124,7 +124,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '19/12/2025',
         descricao: 'As vidas de dois assassinos da máfia, um boxeador, a esposa de um gângster e um par de bandidos de restaurante se entrelaçam em quatro histórias de violência e redenção.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/pulp.jpg')
     },
     { 
         id: '9', 
@@ -138,7 +138,7 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '30/08/2025',
         descricao: 'Quando a ameaça conhecida como O Coringa surge de seu passado, ela causa estragos e caos no povo de Gotham.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/batman.jpg')
     },
     { 
         id: '10', 
@@ -152,6 +152,6 @@ export const filmesCadastrados: Filme[] = [
         dataAdicionado: '11/04/2025',
         descricao: 'Dois homens presos encontram redenção ao longo de vários anos, descobrindo consolo e eventuais atos de decência comum.',
         favoritado: true, 
-        imagem: 'https://placeholder.com' 
+        imagem: require('../../assets/images/umsonho.png')
     }
 ];

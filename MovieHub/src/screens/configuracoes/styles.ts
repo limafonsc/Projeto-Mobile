@@ -1,76 +1,69 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#121214',
+    paddingHorizontal: 16,
+  },
   header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 40,
-    marginBottom: 10,
-  },
-  headerTitleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: 80,
+    marginBottom: 8,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#ffffff',
   },
-  txtContador: {
+  tituloCategoria: {
     color: '#a0a0a8',
-    fontSize: 14,
+    fontSize: 13,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    marginBottom: 12,
+    marginTop: 16,
+    letterSpacing: 0.5,
+  },
+  itemConfiguracao: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#141415',
+    borderWidth: 1,
+    borderColor: '#1e1e22',
+    borderRadius: 8,
     paddingHorizontal: 16,
-    marginBottom: 16,
+    height: 56,
+    marginBottom: 12,
+  },
+  rowItemEsquerda: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  txtTituloConfig: {
+    color: '#ffffff',
+    fontSize: 15,
     fontWeight: '500',
   },
-  containerLista: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  cardFilmeVertical: {
-    flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    borderWidth: 1,
-    borderColor: '#242021',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-    alignItems: 'center',
-  },
-  capaFilmeVertical: {
-    width: 65,
-    height: 90,
-    borderRadius: 6,
-    backgroundColor: '#141415',
-  },
-  infoFilmeVertical: {
-    flex: 1,
-    marginLeft: 14,
-    justifyContent: 'center',
-  },
-  tituloFilmeVertical: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  detalhesFilmeVertical: {
-    color: '#a0a0a8',
-    fontSize: 13,
-    marginBottom: 6,
-  },
-  notaContainerVertical: {
+  rowItemDireita: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  notaFilmeVertical: {
+  txtValorConfig: {
     color: '#a0a0a8',
-    fontSize: 13,
-    fontWeight: '600',
+    fontSize: 14,
+    marginRight: 8,
   },
-  btnFavoritoCard: {
-    padding: 8,
+  circuloCorDestaque: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#d30046',
   },
   menuInferiorContainer: {
     position: 'absolute',
@@ -94,7 +87,6 @@ export const styles = StyleSheet.create({
     color: '#d30046',
     fontSize: 11,
     marginTop: 4,
-    fontWeight: 'bold',
   },
   menuItemTextoInativo: {
     color: '#a0a0a8',

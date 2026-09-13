@@ -12,7 +12,7 @@ export default function Filmes() {
 
     const filtros = ['Todos', 'Assistidos', 'Quero assistir', 'Assistindo'];
 
-    const listaFiltrada = filmesCadastrados.filter(filme => {
+    const listaFiltrada = filmesCadastrados.filter((filme: any) => {
         const matchesPesquisa = filme.titulo.toLowerCase().includes(pesquisa.toLowerCase());
         if (filtroAtivo === 'Todos') return matchesPesquisa;
         return matchesPesquisa && filme.status === filtroAtivo;
@@ -23,31 +23,27 @@ export default function Filmes() {
             <View style={styles.header}>
                 <View style={{ width: 28 }} />
                 <Text style={styles.headerTitle}>Filmes</Text>
-                <TouchableOpacity>
-                    <Ionicons name="funnel-outline" size={22} color="#FFF" />
-                </TouchableOpacity>
             </View>
 
-                <TouchableOpacity 
-                    style={styles.buscaContainer} 
-                    activeOpacity={0.8}
-                    onPress={() => navigation.navigate('Pesquisa')}
-                >
-                    <Ionicons name="search" size={20} color="#a0a0a8" style={styles.buscaIcone} />
-                    <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <Text style={{ color: '#a0a0a8', fontSize: 16 }}>Pesquisar filmes</Text>
-                    </View>
-                    <TouchableOpacity style={styles.btnMais} onPress={() => navigation.navigate('cadastroFilme')}>
-                        <Ionicons name="add" size={24} color="#FFF" />
-                    </TouchableOpacity>
+            <TouchableOpacity 
+                style={styles.buscaContainer} 
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('Pesquisa')}
+            >
+                <Ionicons name="search" size={20} color="#a0a0a8" style={styles.buscaIcone} />
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <Text style={{ color: '#a0a0a8', fontSize: 16 }}>Pesquisar filmes</Text>
+                </View>
+                <TouchableOpacity style={styles.btnMais} onPress={() => navigation.navigate('cadastroFilme')}>
+                    <Ionicons name="add" size={24} color="#FFF" />
                 </TouchableOpacity>
-
+            </TouchableOpacity>
 
             <ScrollView style={styles.containerLista} showsVerticalScrollIndicator={false}>
-                {listaFiltrada.map((filme) => (
+                {listaFiltrada.map((filme: any) => (
                     <TouchableOpacity key={filme.id} style={styles.cardFilmeVertical}
                         onPress={() => navigation.navigate('DetalhesFilme', { id: filme.id })}>
-                        <Image source={{ uri: filme.imagem }} style={styles.capaFilmeVertical} />
+                        <Image source={filme.imagem} style={styles.capaFilmeVertical} />
                         
                         <View style={styles.infoFilmeVertical}>
                             <Text style={styles.tituloFilmeVertical} numberOfLines={1}>{filme.titulo}</Text>
@@ -84,7 +80,7 @@ export default function Filmes() {
                     <Ionicons name="heart-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Favoritos</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Perfil')}>
                     <Ionicons name="person-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Perfil</Text>
                 </TouchableOpacity>

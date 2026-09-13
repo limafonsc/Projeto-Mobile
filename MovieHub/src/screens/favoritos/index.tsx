@@ -9,7 +9,7 @@ export default function Favoritos() {
     const navigation = useNavigation<any>();
     const [pesquisa, setPesquisa] = useState('');
 
-    const filmesFavoritos = filmesCadastrados.filter(f => f.favoritado && f.titulo.toLowerCase().includes(pesquisa.toLowerCase()));
+    const filmesFavoritos = filmesCadastrados.filter((f: any) => f.favoritado && f.titulo.toLowerCase().includes(pesquisa.toLowerCase()));
 
     return (
         <View style={{ flex: 1, backgroundColor: '#121214' }}>
@@ -19,21 +19,18 @@ export default function Favoritos() {
                     <Text style={styles.headerTitle}>Favoritos </Text>
                     <Ionicons name="heart" size={20} color="#d30046" />
                 </View>
-                <TouchableOpacity>
-                    <Ionicons name="search" size={24} color="#FFF" />
-                </TouchableOpacity>
             </View>
 
             <Text style={styles.txtContador}>{filmesFavoritos.length} filmes favoritos</Text>
 
             <ScrollView style={styles.containerLista} showsVerticalScrollIndicator={false}>
-                {filmesFavoritos.map((filme) => (
+                {filmesFavoritos.map((filme: any) => (
                     <TouchableOpacity 
                         key={filme.id} 
                         style={styles.cardFilmeVertical} 
                         onPress={() => navigation.navigate('DetalhesFilme', { id: filme.id })}
                     >
-                        <Image source={{ uri: filme.imagem }} style={styles.capaFilmeVertical} />
+                        <Image source={filme.imagem} style={styles.capaFilmeVertical} />
                         
                         <View style={styles.infoFilmeVertical}>
                             <Text style={styles.tituloFilmeVertical} numberOfLines={1}>{filme.titulo}</Text>
@@ -66,7 +63,7 @@ export default function Favoritos() {
                     <Ionicons name="heart" size={22} color="#d30046" />
                     <Text style={styles.menuItemTextoAtivo}>Favoritos</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Perfil')}>
                     <Ionicons name="person-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Perfil</Text>
                 </TouchableOpacity>
