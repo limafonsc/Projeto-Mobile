@@ -8,11 +8,11 @@ import { filmesCadastrados } from "../dados";
 export default function CompartilharFilme() {
     const navigation = useNavigation<any>();
 
-    const filme = (filmesCadastrados[2] as any);
+    const filme = (filmesCadastrados[0] as any);
 
     const redesSociais = [
         { id: "1", nome: "WhatsApp", icone: "logo-whatsapp", cor: "#25D366" },
-        { id: "2", nome: "Instagram", icone: "logo-instagram", cor: "#E1306C" },
+        { id: "2", nome: "Instagram", icone: "logo-instagram", color: "#E1306C" },
         { id: "3", nome: "Facebook", icone: "logo-facebook", cor: "#1877F2" },
         { id: "4", nome: "Telegram", icone: "paper-plane", cor: "#0088cc" },
         { id: "5", nome: "E-mail", icone: "mail-outline", cor: "#d30046" },
@@ -33,7 +33,7 @@ export default function CompartilharFilme() {
 
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 <View style={styles.cardInfoFilme}>
-                    <Image source={{ uri: filme.imagem }} style={styles.capaFilme} />
+                    <Image source={filme.imagem} style={styles.capaFilme} />
                     <View style={styles.blocoTextoFilme}>
                         <Text style={styles.txtTituloFilme} numberOfLines={1}>{filme.titulo}</Text>
                         <Text style={styles.txtMetadados}>{filme.ano} • {filme.genero}</Text>

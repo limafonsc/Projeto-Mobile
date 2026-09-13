@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert, Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker"; 
 import { styles } from "./styles";
 import { filmesCadastrados } from "../dados";
 
@@ -10,7 +11,7 @@ export default function EditarFilme() {
     const route = useRoute<any>();
     const { id } = route.params || { id: '3' };
 
-    const filmeBase = filmesCadastrados.find(f => f.id === id) || filmesCadastrados[0];
+    const filmeBase = (filmesCadastrados as any).find((f: any) => f.id === id) || (filmesCadastrados as any)[0];
 
     const [titulo, setTitulo] = useState(filmeBase.titulo);
     const [genero, setGenero] = useState(filmeBase.genero);
@@ -21,6 +22,44 @@ export default function EditarFilme() {
     const [status, setStatus] = useState(filmeBase.status);
     const [trailer, setTrailer] = useState('https://youtube.com');
     const [nota, setNota] = useState(Math.floor(parseFloat(filmeBase.nota.replace(',', '.'))));
+    const [imagemCapa, setImagemCapa] = useState<any>(filmeBase.imagem);
+
+    const abrirGaleria = async () => {
+        const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (!permissao.granted) {
+            Alert.alert("Permissão necessária", "Precisamos de acesso à galeria para escolher a capa.");
+            return;
+        }
+
+        const resultado = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            aspect:[3,4],
+            quality: 1,
+        });
+
+        if (!resultado.canceled) {
+            setImagemCapa({ uri: resultado.assets[0].uri });
+        }
+    };
+
+    const abrirCamera = async () => {
+        const permissao = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permissao.granted) {
+            Alert.alert("Permissão necessária", "Precisamos de acesso à câmera para tirar a foto.");
+            return;
+        }
+
+        const resultado = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect:[3,4],
+            quality: 1,
+        });
+
+        if (!resultado.canceled) {
+            setImagemCapa({ uri: resultado.assets[0].uri });
+        }
+    };
 
     const lidarComSalvarAlteracoes = () => {
         if (!titulo || !genero || !ano || !status) {
@@ -58,13 +97,13 @@ export default function EditarFilme() {
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 <Text style={styles.inputLabel}>Imagem do filme</Text>
                 <View style={styles.blocoImagemEdicao}>
-                    <Image source={{ uri: filmeBase.imagem }} style={styles.previewCapa} />
+                    <Image source={imagemCapa} style={styles.previewCapa} />
                     <View style={styles.botoesImagemColuna}>
-                        <TouchableOpacity style={styles.btnUploadOpcao}>
+                        <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirGaleria}>
                             <Ionicons name="image-outline" size={16} color="#d30046" />
                             <Text style={styles.txtUploadOpcao}> Alterar da Galeria</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btnUploadOpcao}>
+                        <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirCamera}>
                             <Ionicons name="camera-outline" size={16} color="#d30046" />
                             <Text style={styles.txtUploadOpcao}> Tirar Foto</Text>
                         </TouchableOpacity>

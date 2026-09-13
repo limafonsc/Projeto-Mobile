@@ -124,7 +124,7 @@ export default function DetalhesFilme() {
                     <Ionicons name="heart-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Favoritos</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Perfil')}>
                     <Ionicons name="person-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Perfil</Text>
                 </TouchableOpacity>
