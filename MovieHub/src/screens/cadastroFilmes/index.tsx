@@ -8,7 +8,6 @@ import { styles } from "./styles";
 export default function CadastroFilme() {
     const navigation = useNavigation<any>();
 
-    // Estados do formulário
     const [titulo, setTitulo] = useState('');
     const [genero, setGenero] = useState('');
     const [ano, setAno] = useState('');
@@ -19,10 +18,8 @@ export default function CadastroFilme() {
     const [trailer, setTrailer] = useState('');
     const [nota, setNota] = useState(0);
     
-    // Estado para guardar o endereço da imagem selecionada
     const [imagemCapa, setImagemCapa] = useState<string | null>(null);
 
-    // FUNÇÃO: Abre a Galeria do Celular
     const abrirGaleria = async () => {
         const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (!permissao.granted) {
@@ -42,7 +39,6 @@ export default function CadastroFilme() {
         }
     };
 
-    // FUNÇÃO: Abre a Câmera do Celular
     const abrirCamera = async () => {
         const permissao = await ImagePicker.requestCameraPermissionsAsync();
         if (!permissao.granted) {
@@ -52,7 +48,7 @@ export default function CadastroFilme() {
 
         const resultado = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
-            aspect:[3,4],
+            aspect: [3,4],
             quality: 1,
         });
 
@@ -69,7 +65,6 @@ export default function CadastroFilme() {
 
         Alert.alert("Sucesso", "Filme cadastrado com sucesso!");
         
-        // Limpa o formulário após salvar
         setTitulo('');
         setGenero('');
         setAno('');
@@ -85,8 +80,6 @@ export default function CadastroFilme() {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#121214' }}>
-            
-            {/* Cabeçalho */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back" size={24} color="#FFF" />
@@ -96,44 +89,37 @@ export default function CadastroFilme() {
             </View>
 
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                
-        {/* Área de Upload da Capa */}
-        <View style={styles.uploadContainer}>
-        {imagemCapa ? (
-            // Se tiver uma imagem selecionada, mostra a imagem na tela
-            <TouchableOpacity onPress={abrirGaleria} style={{ width: '100%', alignItems: 'center' }}>
-            <Image 
-                source={{ uri: imagemCapa }} 
-                style={{ width: 120, height: 160, borderRadius: 8, marginBottom: 8 }} 
-            />
-            <Text style={[styles.textUploadDescricao, { color: '#d30046' }]}>
-                Toque na imagem para alterar
-            </Text>
-            </TouchableOpacity>
-        ) : (
-            // Se não tiver imagem, mostra o ícone e os botões originais
-            <>
-            <Ionicons name="film-outline" size={32} color="#a0a0a8" style={{ marginBottom: 8 }} />
-            <Text style={styles.textUploadDescricao}>Adicionar capa do filme</Text>
-      
-            <View style={styles.uploadBotoesRow}>
-                {/* Adicionado o onPress para abrir a galeria */}
-                <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirGaleria}>
-                <Ionicons name="image-outline" size={16} color="#d30046" />
-                <Text style={styles.txtUploadOpcao}> Galeria</Text>
-                </TouchableOpacity>
+                <View style={styles.uploadContainer}>
+                    {imagemCapa ? (
+                        <TouchableOpacity onPress={abrirGaleria} style={{ width: '100%', alignItems: 'center' }}>
+                            <Image 
+                                source={{ uri: imagemCapa }} 
+                                style={{ width: 120, height: 160, borderRadius: 8, marginBottom: 8 }} 
+                            />
+                            <Text style={[styles.textUploadDescricao, { color: '#d30046' }]}>
+                                Toque na imagem para alterar
+                            </Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <>
+                            <Ionicons name="film-outline" size={32} color="#a0a0a8" style={{ marginBottom: 8 }} />
+                            <Text style={styles.textUploadDescricao}>Adicionar capa do filme</Text>
+                      
+                            <View style={styles.uploadBotoesRow}>
+                                <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirGaleria}>
+                                    <Ionicons name="image-outline" size={16} color="#d30046" />
+                                    <Text style={styles.txtUploadOpcao}> Galeria</Text>
+                                </TouchableOpacity>
 
-                {/* Adicionado o onPress para abrir a câmera */}
-                <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirCamera}>
-                <Ionicons name="camera-outline" size={16} color="#d30046" />
-                <Text style={styles.txtUploadOpcao}> Câmera</Text>
-                </TouchableOpacity>
-            </View>
-            </>
-        )}
-        </View>
+                                <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirCamera}>
+                                    <Ionicons name="camera-outline" size={16} color="#d30046" />
+                                    <Text style={styles.txtUploadOpcao}> Câmera</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </>
+                    )}
+                </View>
 
-                {/* Campo: Título */}
                 <Text style={styles.inputLabel}>Título <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -145,20 +131,17 @@ export default function CadastroFilme() {
                     />
                 </View>
 
-                {/* Campo: Gênero (Com ícone de seta igual ao slide) */}
                 <Text style={styles.inputLabel}>Gênero <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
                         style={styles.input} 
-                        placeholder="Selecione o gênero" 
+                        placeholder="Digite o gênero" 
                         placeholderTextColor="#a0a0a8"
                         value={genero}
                         onChangeText={setGenero}
                     />
-                    <Ionicons name="chevron-down" size={18} color="#a0a0a8" />
                 </View>
 
-                {/* Fileira dupla: Ano e Duração */}
                 <View style={styles.rowDupla}>
                     <View style={{ flex: 1, marginRight: 8 }}>
                         <Text style={styles.inputLabel}>Ano <Text style={{ color: '#d30046' }}>*</Text></Text>
@@ -188,7 +171,6 @@ export default function CadastroFilme() {
                     </View>
                 </View>
 
-                {/* Campo: Diretor */}
                 <Text style={styles.inputLabel}>Diretor</Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -200,7 +182,6 @@ export default function CadastroFilme() {
                     />
                 </View>
 
-                {/* Campo: Descrição */}
                 <Text style={styles.inputLabel}>Descrição</Text>
                 <View style={[styles.inputRowContainer, { height: 100, alignItems: 'flex-start', paddingTop: 12 }]}>
                     <TextInput 
@@ -214,7 +195,6 @@ export default function CadastroFilme() {
                     />
                 </View>
 
-                {/* Fileira dupla: Nota em Estrelas e Status */}
                 <View style={styles.rowDupla}>
                     <View style={{ flex: 1, marginRight: 8 }}>
                         <Text style={styles.inputLabel}>Nota (0 a 5)</Text>
@@ -245,7 +225,6 @@ export default function CadastroFilme() {
                     </View>
                 </View>
 
-                {/* Campo: Trailer */}
                 <Text style={styles.inputLabel}>Trailer (YouTube)</Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -257,7 +236,6 @@ export default function CadastroFilme() {
                     />
                 </View>
 
-                {/* Botões de Ação */}
                 <TouchableOpacity style={styles.buttonSalvar} onPress={lidarComSalvar}>
                     <Text style={styles.textButtonSalvar}>Salvar Filme</Text>
                 </TouchableOpacity>
@@ -266,9 +244,7 @@ export default function CadastroFilme() {
                     <Text style={styles.textButtonCancelar}>Cancelar</Text>
                 </TouchableOpacity>
 
-                {/* Espaço de respiro inferior na rolagem */}
                 <View style={{ height: 40 }} />
-
             </ScrollView>
         </View>
     );

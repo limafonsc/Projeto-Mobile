@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  containerLista: {
+  container: {
     flex: 1,
+    backgroundColor: '#121214',
     paddingHorizontal: 16,
   },
   header: {
@@ -11,83 +12,53 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingTop: 40,
-    marginBottom: 20,
+    height: 80,
+    marginBottom: 8,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#ffffff',
-    textAlign: 'center',
   },
-  buscaContainer: {
+  subHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 8,
+  },
+  txtSubHeader: {
+    color: '#a0a0a8',
+    fontSize: 14,
+  },
+  cardGenero: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#141415',
     borderWidth: 1,
-    borderColor: '#323238',
+    borderColor: '#1e1e22',
     borderRadius: 8,
     paddingHorizontal: 16,
-    height: 52,
-    marginHorizontal: 16,
-    marginBottom: 16,
+    height: 60,
+    marginBottom: 12,
   },
-  buscaIcone: {
-    marginRight: 10,
-  },
-  btnMais: {
-    backgroundColor: '#d30046',
-    borderRadius: 6,
-    padding: 6,
-    marginLeft: 8,
-    shadowColor: '#d3007f',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  cardFilmeVertical: {
+  blocoEsquerda: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    borderWidth: 1,
-    borderColor: '#242021',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
     alignItems: 'center',
   },
-  capaFilmeVertical: {
-    width: 65,
-    height: 90,
-    borderRadius: 6,
-    backgroundColor: '#141415',
-  },
-  infoFilmeVertical: {
-    flex: 1,
-    marginLeft: 14,
-    justifyContent: 'center',
-  },
-  tituloFilmeVertical: {
+  txtNomeGenero: {
     color: '#ffffff',
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
+    fontWeight: '600',
   },
-  detalhesFilmeVertical: {
-    color: '#a0a0a8',
-    fontSize: 13,
-    marginBottom: 6,
-  },
-  notaContainerVertical: {
+  blocoDireita: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  notaFilmeVertical: {
+  txtQuantidade: {
     color: '#a0a0a8',
     fontSize: 13,
-    fontWeight: '600',
-  },
-  btnFavoritoCard: {
-    padding: 8,
+    marginRight: 8,
   },
   menuInferiorContainer: {
     position: 'absolute',
@@ -111,7 +82,6 @@ export const styles = StyleSheet.create({
     color: '#d30046',
     fontSize: 11,
     marginTop: 4,
-    fontWeight: 'bold',
   },
   menuItemTextoInativo: {
     color: '#a0a0a8',

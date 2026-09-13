@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
+import { filmesCadastrados } from "../dados";
 
 export default function EditarFilme() {
     const navigation = useNavigation<any>();
+    const route = useRoute<any>();
+    const { id } = route.params || { id: '3' };
 
-    // Estados preenchidos com os dados fictícios para simular a edição
-    const [titulo, setTitulo] = useState('Interestelar');
-    const [genero, setGenero] = useState('Ficção Científica, Aventura');
-    const [ano, setAno] = useState('2014');
-    const [duracao, setDuracao] = useState('169');
-    const [diretor, setDiretor] = useState('Christopher Nolan');
-    const [descricao, setDescricao] = useState('Uma equipe de exploradores viaja através de um buraco de minhoca recém-descoberto para superar os limites das viagens espaciais humanas e conquistar as vastas distâncias interestelares.');
-    const [status, setStatus] = useState('Assistido');
+    const filmeBase = filmesCadastrados.find(f => f.id === id) || filmesCadastrados[0];
+
+    const [titulo, setTitulo] = useState(filmeBase.titulo);
+    const [genero, setGenero] = useState(filmeBase.genero);
+    const [ano, setAno] = useState(filmeBase.ano);
+    const [duracao, setDuracao] = useState(filmeBase.duracao.replace(/[^0-9]/g, ''));
+    const [diretor, setDiretor] = useState(filmeBase.diretor);
+    const [descricao, setDescricao] = useState(filmeBase.descricao);
+    const [status, setStatus] = useState(filmeBase.status);
     const [trailer, setTrailer] = useState('https://youtube.com');
-    const [nota, setNota] = useState(4);
+    const [nota, setNota] = useState(Math.floor(parseFloat(filmeBase.nota.replace(',', '.'))));
 
     const lidarComSalvarAlteracoes = () => {
         if (!titulo || !genero || !ano || !status) {
@@ -41,8 +45,6 @@ export default function EditarFilme() {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#121214' }}>
-            
-            {/* Cabeçalho com botão voltar e botão de excluir */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back" size={24} color="#FFF" />
@@ -54,12 +56,9 @@ export default function EditarFilme() {
             </View>
 
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                
-                {/* Seção da Imagem do Filme (Estilo do Slide) */}
                 <Text style={styles.inputLabel}>Imagem do filme</Text>
                 <View style={styles.blocoImagemEdicao}>
-                    <Image source={{ uri: 'https://placeholder.com' }} style={styles.previewCapa} />
-                    
+                    <Image source={{ uri: filmeBase.imagem }} style={styles.previewCapa} />
                     <View style={styles.botoesImagemColuna}>
                         <TouchableOpacity style={styles.btnUploadOpcao}>
                             <Ionicons name="image-outline" size={16} color="#d30046" />
@@ -72,7 +71,6 @@ export default function EditarFilme() {
                     </View>
                 </View>
 
-                {/* Campo: Título */}
                 <Text style={styles.inputLabel}>Título <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -82,7 +80,6 @@ export default function EditarFilme() {
                     />
                 </View>
 
-                {/* Campo: Gênero */}
                 <Text style={styles.inputLabel}>Gênero <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -93,7 +90,6 @@ export default function EditarFilme() {
                     <Ionicons name="chevron-down" size={18} color="#a0a0a8" />
                 </View>
 
-                {/* Fileira dupla: Ano e Duração */}
                 <View style={styles.rowDupla}>
                     <View style={{ flex: 1, marginRight: 8 }}>
                         <Text style={styles.inputLabel}>Ano <Text style={{ color: '#d30046' }}>*</Text></Text>
@@ -119,7 +115,6 @@ export default function EditarFilme() {
                     </View>
                 </View>
 
-                {/* Campo: Diretor */}
                 <Text style={styles.inputLabel}>Diretor</Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -129,7 +124,6 @@ export default function EditarFilme() {
                     />
                 </View>
 
-                {/* Campo: Descrição */}
                 <Text style={styles.inputLabel}>Descrição <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={[styles.inputRowContainer, { height: 100, alignItems: 'flex-start', paddingTop: 12 }]}>
                     <TextInput 
@@ -141,7 +135,6 @@ export default function EditarFilme() {
                     />
                 </View>
 
-                {/* Fileira dupla: Nota e Status */}
                 <View style={styles.rowDupla}>
                     <View style={{ flex: 1, marginRight: 8 }}>
                         <Text style={styles.inputLabel}>Nota (0 a 5)</Text>
@@ -156,7 +149,7 @@ export default function EditarFilme() {
                                     />
                                 </TouchableOpacity>
                             ))}
-                            <Text style={styles.txtNotaTexto}> 4,0</Text>
+                            <Text style={styles.txtNotaTexto}> {nota.toFixed(1).replace('.', ',')}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, marginLeft: 8 }}>
@@ -171,7 +164,6 @@ export default function EditarFilme() {
                     </View>
                 </View>
 
-                {/* Campo: Trailer */}
                 <Text style={styles.inputLabel}>Trailer (YouTube)</Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
@@ -181,7 +173,6 @@ export default function EditarFilme() {
                     />
                 </View>
 
-                {/* Botões de Ação */}
                 <TouchableOpacity style={styles.buttonSalvar} onPress={lidarComSalvarAlteracoes}>
                     <Text style={styles.textButtonSalvar}>Salvar Alterações</Text>
                 </TouchableOpacity>
@@ -191,7 +182,6 @@ export default function EditarFilme() {
                 </TouchableOpacity>
 
                 <View style={{ height: 40 }} />
-
             </ScrollView>
         </View>
     );

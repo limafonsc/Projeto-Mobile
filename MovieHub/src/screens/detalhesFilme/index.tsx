@@ -1,25 +1,16 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
+import { filmesCadastrados } from "../dados";
 
 export default function DetalhesFilme() {
     const navigation = useNavigation<any>();
+    const route = useRoute<any>();
+    const { id } = route.params || { id: '3' };
 
-    // DADOS FICTÍCIOS FIXOS: Exatamente como na imagem que você enviou
-    const filme = {
-        titulo: 'Interestelar',
-        ano: '2014',
-        duracao: '2h 49min',
-        nota: '4,8',
-        status: 'Assistido',
-        genero: 'Ficção Científica, Aventura',
-        diretor: 'Christopher Nolan',
-        dataAdicionado: '12/05/2024',
-        descricao: 'Uma equipe de exploradores viaja através de um buraco de minhoca recém-descoberto para superar os limites das viagens espaciais humanas e conquistar as vastas distâncias interestelares.',
-        imagem: 'https://placeholder.com' // Você pode trocar pelo link real da foto depois
-    };
+    const filme = filmesCadastrados.find(f => f.id === id) || filmesCadastrados[0];
 
     const lidarComExcluir = () => {
         Alert.alert(
@@ -34,8 +25,6 @@ export default function DetalhesFilme() {
 
     return (
         <View style={{ flex: 1, backgroundColor: '#121214' }}>
-            
-            {/* Cabeçalho */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back" size={24} color="#FFF" />
@@ -47,8 +36,6 @@ export default function DetalhesFilme() {
             </View>
 
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                
-                {/* Bloco Superior: Imagem e Dados Principais */}
                 <View style={styles.blocoTopo}>
                     <Image source={{ uri: filme.imagem }} style={styles.capaFilme} />
                     
@@ -77,23 +64,19 @@ export default function DetalhesFilme() {
                     </View>
                 </View>
 
-                {/* Bloco Descrição */}
                 <Text style={styles.secaoTitulo}>Descrição</Text>
                 <Text style={styles.txtDescricao}>{filme.descricao}</Text>
 
-                {/* Bloco Minha Avaliação */}
                 <Text style={styles.secaoTitulo}>Minha avaliação</Text>
                 <View style={styles.blocoAvaliacao}>
                     <View style={styles.rowEstrelas}>
-                        {[1, 2, 3, 4].map((estrela) => (
-                            <Ionicons key={estrela} name="star" size={22} color="#FFD700" style={{ marginRight: 6 }} />
+                        {[1, 2, 3, 4, 5].map((estrela) => (
+                            <Ionicons key={estrela} name={estrela <= Math.floor(parseFloat(filme.nota)) ? "star" : "star-outline"} size={22} color="#FFD700" style={{ marginRight: 6 }} />
                         ))}
-                        <Ionicons name="star-outline" size={22} color="#FFD700" style={{ marginRight: 6 }} />
                     </View>
-                    <Text style={styles.txtAvaliacaoNumero}>4,0</Text>
+                    <Text style={styles.txtAvaliacaoNumero}>{filme.nota}</Text>
                 </View>
 
-                {/* Bloco Trailer */}
                 <Text style={styles.secaoTitulo}>Trailer</Text>
                 <TouchableOpacity style={styles.btnTrailer}>
                     <View style={styles.rowTrailerEsquerda}>
@@ -103,16 +86,15 @@ export default function DetalhesFilme() {
                     <Ionicons name="chevron-forward" size={20} color="#a0a0a8" />
                 </TouchableOpacity>
 
-                {/* Grade de Botões de Ação */}
                 <View style={styles.gradeAcoes}>
                     <TouchableOpacity style={styles.cardAcao}>
-                        <Ionicons name="heart" size={22} color="#d30046" />
+                        <Ionicons name={filme.favoritado ? "heart" : "heart-outline"} size={22} color="#d30046" />
                         <Text style={styles.txtCardAcao}>Favorito</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.cardAcao}>
+                    <TouchableOpacity style={styles.cardAcao} onPress={() => navigation.navigate('EditarFilme', { id: filme.id })}>
                         <Ionicons name="create-outline" size={22} color="#FFBB00" />
-                        <Text style={styles.txtCardAcao} onPress={() => navigation.navigate('EditarFilme')}>Editar</Text>
+                        <Text style={styles.txtCardAcao}>Editar</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.cardAcao} onPress={lidarComExcluir}>
@@ -126,14 +108,11 @@ export default function DetalhesFilme() {
                     </TouchableOpacity>
                 </View>
 
-                {/* Espaço para não sumir atrás da barra inferior */}
                 <View style={{ height: 100 }} />
-
             </ScrollView>
 
-            {/* Barra de Tarefas Inferior Fixa */}
             <View style={styles.menuInferiorContainer}>
-                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('home')}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Home')}>
                     <Ionicons name="home-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Home</Text>
                 </TouchableOpacity>
@@ -141,7 +120,7 @@ export default function DetalhesFilme() {
                     <Ionicons name="film" size={22} color="#d30046" />
                     <Text style={styles.menuItemTextoAtivo}>Filmes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Filmes')}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Favoritos')}>
                     <Ionicons name="heart-outline" size={22} color="#a0a0a8" />
                     <Text style={styles.menuItemTextoInativo}>Favoritos</Text>
                 </TouchableOpacity>
@@ -150,7 +129,6 @@ export default function DetalhesFilme() {
                     <Text style={styles.menuItemTextoInativo}>Perfil</Text>
                 </TouchableOpacity>
             </View>
-
         </View>
     );
 }

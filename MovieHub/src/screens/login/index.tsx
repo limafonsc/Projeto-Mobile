@@ -18,7 +18,7 @@ export default function Login() {
         setTimeout(() => {
             setCarregando(false);
             console.log('Tentando logar com', email);
-            navigation.replace('home');
+            navigation.replace('Home');
         }, 2000);
     };
     return (
