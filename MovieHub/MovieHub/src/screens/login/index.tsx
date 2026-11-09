@@ -3,6 +3,7 @@ import { View, Text, TextInput, Image, TouchableOpacity, ActivityIndicator, Aler
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
+import { loginUser } from "../../services/api";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -13,17 +14,20 @@ export default function Login() {
 
     const navigation = useNavigation<any> ();
 
-    const lidarComLogin = () => {
+        const lidarComLogin = async () => {
         if (!email || !senha) {
             Alert.alert("Campos obrigatórios", "Por favor, preencha o e-mail e a senha para continuar.");
             return;
         }
         setCarregando(true);
-        setTimeout(() => {
-            setCarregando(false);
-            console.log('Tentando logar com', email);
+        try {
+            await loginUser({ email: email.trim(), senha });
             navigation.replace('Home');
-        }, 2000);
+        } catch (erro) {
+            Alert.alert("Não foi possível entrar", erro instanceof Error ? erro.message : "Confira seus dados e tente novamente.");
+        } finally {
+            setCarregando(false);
+        }
     };
     return (
         <View style={styles.body}>

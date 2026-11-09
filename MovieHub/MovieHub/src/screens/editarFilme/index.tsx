@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Alert, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker"; 
 import { styles } from "./styles";
+import { Filme, getMovie, updateMovie, deleteMovie, uploadCover } from "../../services/api";
 
-export default function CadastroFilme() {
+export default function EditarFilme() {
     const navigation = useNavigation<any>();
+    const route = useRoute<any>();
+    const { id } = route.params || { id: '3' };
 
     const [titulo, setTitulo] = useState('');
     const [genero, setGenero] = useState('');
@@ -17,9 +20,24 @@ export default function CadastroFilme() {
     const [status, setStatus] = useState('');
     const [trailer, setTrailer] = useState('');
     const [nota, setNota] = useState(0);
-    
-    const [imagemCapa, setImagemCapa] = useState<string | null>(null);
+    const [imagemCapa, setImagemCapa] = useState<any>(null);
+    const [imagemBase64, setImagemBase64] = useState<string | null>(null);
+    const [mimeImagem, setMimeImagem] = useState('image/jpeg');
 
+    useEffect(() => {
+        getMovie(String(id)).then((filme: Filme) => {
+            setTitulo(filme.titulo);
+            setGenero(filme.genero);
+            setAno(filme.ano);
+            setDuracao(filme.duracao.replace(/[^0-9]/g, ''));
+            setDiretor(filme.diretor);
+            setDescricao(filme.descricao);
+            setStatus(filme.status);
+            setTrailer(filme.trailer_url || '');
+            setNota(Number(filme.nota));
+            setImagemCapa(filme.imagem ? { uri: filme.imagem } : require('../../../assets/images/duna.jpg'));
+        }).catch((erro: Error) => Alert.alert('Erro ao carregar filme', erro.message));
+    }, [id]);
     const abrirGaleria = async () => {
         const permissao = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (!permissao.granted) {
@@ -31,51 +49,74 @@ export default function CadastroFilme() {
             mediaTypes: ['images'],
             allowsEditing: true,
             aspect:[3,4],
-            quality: 1,
+            quality: 0.8,
+            base64: true,
         });
 
         if (!resultado.canceled) {
-            setImagemCapa(resultado.assets[0].uri);
+            setImagemCapa({ uri: resultado.assets[0].uri });
+            setImagemBase64(resultado.assets[0].base64 || null);
+            setMimeImagem(resultado.assets[0].mimeType || 'image/jpeg');
         }
     };
 
     const abrirCamera = async () => {
         const permissao = await ImagePicker.requestCameraPermissionsAsync();
         if (!permissao.granted) {
-            Alert.alert("Permissão necessária", "Precisamos de acesso à câmera para tirar a foto da capa.");
+            Alert.alert("Permissão necessária", "Precisamos de acesso à câmera para tirar a foto.");
             return;
         }
 
         const resultado = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
-            aspect: [3,4],
-            quality: 1,
+            aspect:[3,4],
+            quality: 0.8,
+            base64: true,
         });
 
         if (!resultado.canceled) {
-            setImagemCapa(resultado.assets[0].uri);
+            setImagemCapa({ uri: resultado.assets[0].uri });
+            setImagemBase64(resultado.assets[0].base64 || null);
+            setMimeImagem(resultado.assets[0].mimeType || 'image/jpeg');
         }
     };
 
-    const lidarComSalvar = () => {
-        if (!titulo || !genero || !ano || !status) {
-            Alert.alert("Campos obrigatórios", "Por favor, preencha todos os campos marcados com (*).");
+    const lidarComSalvarAlteracoes = async () => {
+        if (!titulo.trim() || !genero.trim() || !ano || !status.trim()) {
+            Alert.alert("Erro", "Por favor, preencha os campos obrigatórios (*).");
             return;
         }
+        try {
+            const capa = imagemBase64 ? await uploadCover(imagemBase64, mimeImagem) : null;
+            await updateMovie(String(id), {
+                titulo: titulo.trim(), genero: genero.trim(), ano: Number(ano),
+                duracao: duracao ? Number(duracao) : null, diretor: diretor.trim() || null,
+                descricao: descricao.trim() || null, nota, status: status.trim(),
+                trailer_url: trailer.trim() || null,
+                ...(capa ? { imagem_url: capa.image_url } : {}),
+            });
+            navigation.goBack();
+        } catch (erro) {
+            Alert.alert("Não foi possível salvar", erro instanceof Error ? erro.message : "Tente novamente.");
+        }
+    };
 
-        Alert.alert("Sucesso", "Filme cadastrado com sucesso!");
-        
-        setTitulo('');
-        setGenero('');
-        setAno('');
-        setDuracao('');
-        setDiretor('');
-        setDescricao('');
-        setNota(0);
-        setStatus('');
-        setTrailer('');
-
-        navigation.navigate('Filmes');
+    const lidarComExcluir = () => {
+        Alert.alert(
+            "Excluir Filme",
+            "Tem certeza que deseja excluir este filme?",
+            [
+                { text: "Cancelar", style: "cancel" },
+                { text: "Excluir", style: "destructive", onPress: async () => {
+                    try {
+                        await deleteMovie(String(id));
+                        navigation.navigate('Filmes');
+                    } catch (erro) {
+                        Alert.alert('Não foi possível excluir', erro instanceof Error ? erro.message : 'Tente novamente.');
+                    }
+                } }
+            ]
+        );
     };
 
     return (
@@ -84,48 +125,32 @@ export default function CadastroFilme() {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back" size={24} color="#FFF" />
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>Novo Filme</Text>
-                <View style={{ width: 24 }} /> 
+                <Text style={styles.headerTitle}>Editar Filme</Text>
+                <TouchableOpacity onPress={lidarComExcluir}>
+                    <Ionicons name="trash-outline" size={24} color="#E51C44" />
+                </TouchableOpacity>
             </View>
 
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                <View style={styles.uploadContainer}>
-                    {imagemCapa ? (
-                        <TouchableOpacity onPress={abrirGaleria} style={{ width: '100%', alignItems: 'center' }}>
-                            <Image 
-                                source={{ uri: imagemCapa }} 
-                                style={{ width: 120, height: 160, borderRadius: 8, marginBottom: 8 }} 
-                            />
-                            <Text style={[styles.textUploadDescricao, { color: '#d30046' }]}>
-                                Toque na imagem para alterar
-                            </Text>
+                <Text style={styles.inputLabel}>Imagem do filme</Text>
+                <View style={styles.blocoImagemEdicao}>
+                    <Image source={imagemCapa || require("../../../assets/images/duna.jpg")} style={styles.previewCapa} />
+                    <View style={styles.botoesImagemColuna}>
+                        <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirGaleria}>
+                            <Ionicons name="image-outline" size={16} color="#d30046" />
+                            <Text style={styles.txtUploadOpcao}> Alterar da Galeria</Text>
                         </TouchableOpacity>
-                    ) : (
-                        <>
-                            <Ionicons name="film-outline" size={32} color="#a0a0a8" style={{ marginBottom: 8 }} />
-                            <Text style={styles.textUploadDescricao}>Adicionar capa do filme</Text>
-                      
-                            <View style={styles.uploadBotoesRow}>
-                                <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirGaleria}>
-                                    <Ionicons name="image-outline" size={16} color="#d30046" />
-                                    <Text style={styles.txtUploadOpcao}> Galeria</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirCamera}>
-                                    <Ionicons name="camera-outline" size={16} color="#d30046" />
-                                    <Text style={styles.txtUploadOpcao}> Câmera</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </>
-                    )}
+                        <TouchableOpacity style={styles.btnUploadOpcao} onPress={abrirCamera}>
+                            <Ionicons name="camera-outline" size={16} color="#d30046" />
+                            <Text style={styles.txtUploadOpcao}> Tirar Foto</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <Text style={styles.inputLabel}>Título <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={styles.inputRowContainer}>
                     <TextInput 
                         style={styles.input} 
-                        placeholder="Digite o título do filme" 
-                        placeholderTextColor="#a0a0a8"
                         value={titulo}
                         onChangeText={setTitulo}
                     />
@@ -135,11 +160,10 @@ export default function CadastroFilme() {
                 <View style={styles.inputRowContainer}>
                     <TextInput 
                         style={styles.input} 
-                        placeholder="Digite o gênero" 
-                        placeholderTextColor="#a0a0a8"
                         value={genero}
                         onChangeText={setGenero}
                     />
+                    <Ionicons name="chevron-down" size={18} color="#a0a0a8" />
                 </View>
 
                 <View style={styles.rowDupla}>
@@ -148,8 +172,6 @@ export default function CadastroFilme() {
                         <View style={styles.inputRowContainer}>
                             <TextInput 
                                 style={styles.input} 
-                                placeholder="Ex.: 2024" 
-                                placeholderTextColor="#a0a0a8"
                                 keyboardType="numeric"
                                 value={ano}
                                 onChangeText={setAno}
@@ -161,8 +183,6 @@ export default function CadastroFilme() {
                         <View style={styles.inputRowContainer}>
                             <TextInput 
                                 style={styles.input} 
-                                placeholder="Ex.: 142" 
-                                placeholderTextColor="#a0a0a8"
                                 keyboardType="numeric"
                                 value={duracao}
                                 onChangeText={setDuracao}
@@ -175,19 +195,15 @@ export default function CadastroFilme() {
                 <View style={styles.inputRowContainer}>
                     <TextInput 
                         style={styles.input} 
-                        placeholder="Digite o nome do diretor" 
-                        placeholderTextColor="#a0a0a8"
                         value={diretor}
                         onChangeText={setDiretor}
                     />
                 </View>
 
-                <Text style={styles.inputLabel}>Descrição</Text>
+                <Text style={styles.inputLabel}>Descrição <Text style={{ color: '#d30046' }}>*</Text></Text>
                 <View style={[styles.inputRowContainer, { height: 100, alignItems: 'flex-start', paddingTop: 12 }]}>
                     <TextInput 
                         style={styles.input} 
-                        placeholder="Fale sobre o filme..." 
-                        placeholderTextColor="#a0a0a8"
                         multiline={true}
                         numberOfLines={4}
                         value={descricao}
@@ -203,12 +219,13 @@ export default function CadastroFilme() {
                                 <TouchableOpacity key={estrela} onPress={() => setNota(estrela)}>
                                     <Ionicons 
                                         name={estrela <= nota ? "star" : "star-outline"} 
-                                        size={20} 
+                                        size={18} 
                                         color="#FFD700" 
-                                        style={{ marginRight: 4 }}
+                                        style={{ marginRight: 2 }}
                                     />
                                 </TouchableOpacity>
                             ))}
+                            <Text style={styles.txtNotaTexto}> {nota.toFixed(1).replace('.', ',')}</Text>
                         </View>
                     </View>
                     <View style={{ flex: 1, marginLeft: 8 }}>
@@ -216,8 +233,6 @@ export default function CadastroFilme() {
                         <View style={styles.inputRowContainer}>
                             <TextInput 
                                 style={styles.input} 
-                                placeholder="Digite o status" 
-                                placeholderTextColor="#a0a0a8"
                                 value={status}
                                 onChangeText={setStatus}
                             />
@@ -229,15 +244,13 @@ export default function CadastroFilme() {
                 <View style={styles.inputRowContainer}>
                     <TextInput 
                         style={styles.input} 
-                        placeholder="Cole o link do trailer (opcional)" 
-                        placeholderTextColor="#a0a0a8"
                         value={trailer}
                         onChangeText={setTrailer}
                     />
                 </View>
 
-                <TouchableOpacity style={styles.buttonSalvar} onPress={lidarComSalvar}>
-                    <Text style={styles.textButtonSalvar}>Salvar Filme</Text>
+                <TouchableOpacity style={styles.buttonSalvar} onPress={lidarComSalvarAlteracoes}>
+                    <Text style={styles.textButtonSalvar}>Salvar Alterações</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.buttonCancelar} onPress={() => navigation.goBack()}>
@@ -249,3 +262,6 @@ export default function CadastroFilme() {
         </View>
     );
 }
+
+
+

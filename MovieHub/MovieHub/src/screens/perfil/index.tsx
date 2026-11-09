@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
-import { filmesCadastrados } from "../dados";
+import { Filme, getMovies, logoutUser } from "../../services/api";
 
 export default function Perfil() {
     const navigation = useNavigation<any>();
+    const [filmes, setFilmes] = useState<Filme[]>([]);
 
-    const totalFilmes = filmesCadastrados.length;
-    const favoritos = filmesCadastrados.filter(f => f.favoritado).length;
-    const assistidos = filmesCadastrados.filter(f => f.status === 'Assistido').length;
-    const queroAssistir = filmesCadastrados.filter(f => f.status === 'Quero assistir').length;
+    useFocusEffect(useCallback(() => {
+        let ativo = true;
+        getMovies().then((resultado) => { if (ativo) setFilmes(resultado); })
+            .catch((erro: Error) => console.warn('Não foi possível carregar os filmes:', erro.message));
+        return () => { ativo = false; };
+    }, []));
+
+    const totalFilmes = filmes.length;
+    const favoritos = filmes.filter((filme) => filme.favoritado).length;
+    const assistidos = filmes.filter((filme) => filme.status.toLowerCase() === 'assistido').length;
+    const queroAssistir = filmes.filter((filme) => filme.status.toLowerCase() === 'quero assistir').length;
 
     const opcoesMenu = [
         { id: "1", titulo: "Editar perfil", icone: "person-outline", rota: "" },
@@ -86,7 +94,7 @@ export default function Perfil() {
                     ))}
                 </View>
 
-                <TouchableOpacity style={styles.btnSair}>
+                <TouchableOpacity style={styles.btnSair} onPress={() => { logoutUser(); navigation.replace("Login"); }}>
                     <Ionicons name="log-out-outline" size={20} color="#E51C44" style={{ marginRight: 10 }} />
                     <Text style={styles.txtBtnSair}>Sair da conta</Text>
                 </TouchableOpacity>
@@ -115,3 +123,4 @@ export default function Perfil() {
         </View>
     );
 }
+

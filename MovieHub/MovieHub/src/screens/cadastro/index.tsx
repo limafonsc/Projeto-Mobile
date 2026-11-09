@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { styles } from './styles';
+import { registerUser, setAccessToken } from '../../services/api';
 
 export default function Cadastro() {
   const navigation = useNavigation<any>();
@@ -35,35 +36,33 @@ export default function Cadastro() {
     }
   };
 
-  const lidarComCadastro = async () => {
+    const lidarComCadastro = async () => {
     if (!nome.trim() || !email.trim() || !senha.trim() || !confirmarSenha.trim()) {
       Alert.alert('Erro no cadastro', 'Por favor, preencha todos os campos obrigatórios.');
       return;
     }
-
     if (senha.length < 6) {
       Alert.alert('Erro na senha', 'A senha deve conter pelo menos 6 caracteres.');
       return;
     }
-
     if (senha !== confirmarSenha) {
       Alert.alert('Erro na validação', 'As senhas digitadas não são iguais.');
       return;
     }
-    
     try {
-      Alert.alert(
-        'Sucesso!',
-        'Sua conta foi criada com sucesso.',
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.navigate('Login')
-          }
-        ]
-      );
+      const resultado = await registerUser({ nome: nome.trim(), email: email.trim(), senha });
+      if (resultado.needs_email_confirmation || !resultado.access_token) {
+        Alert.alert('Confira seu e-mail', resultado.message || 'Confirme seu e-mail e depois faça login.', [
+          { text: 'OK', onPress: () => navigation.navigate('Login') }
+        ]);
+        return;
+      }
+      setAccessToken(resultado.access_token);
+      Alert.alert('Conta criada', 'Sua conta foi criada com sucesso.', [
+        { text: 'OK', onPress: () => navigation.replace('Home') }
+      ]);
     } catch (erro) {
-      Alert.alert('Erro no servidor', 'Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      Alert.alert('Erro no cadastro', erro instanceof Error ? erro.message : 'Tente novamente mais tarde.');
     }
   };
 

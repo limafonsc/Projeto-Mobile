@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
-import { filmesCadastrados } from "../dados";
+import { Filme, getMovies } from "../../services/api";
 
 export default function Home() {
     const navigation = useNavigation<any>();
     const [pesquisa, setPesquisa] = useState('');
+    const [filmes, setFilmes] = useState<Filme[]>([]);
 
-    const filmesRecentes = filmesCadastrados.slice(0, 3);
-    const filmesFavoritos = filmesCadastrados.filter((f: any) => f.favoritado).slice(0, 2);
+    useFocusEffect(useCallback(() => {
+        let ativo = true;
+        getMovies().then((resultado) => { if (ativo) setFilmes(resultado); })
+            .catch((erro: Error) => console.warn('Não foi possível carregar os filmes:', erro.message));
+        return () => { ativo = false; };
+    }, []));
+
+    const filmesFiltrados = filmes.filter((filme) => filme.titulo.toLowerCase().includes(pesquisa.toLowerCase()));
+    const filmesRecentes = filmesFiltrados.slice(0, 3);
+    const filmesFavoritos = filmesFiltrados.filter((filme) => filme.favoritado).slice(0, 2);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#121214' }}>
@@ -46,22 +55,22 @@ export default function Home() {
                     <View style={styles.cardResumo}>
                         <Ionicons name="film-outline" size={24} color="#FFF" />
                         <Text style={styles.cardResumoLabel}>Total de filmes</Text>
-                        <Text style={styles.cardResumoValor}>{filmesCadastrados.length}</Text>
+                        <Text style={styles.cardResumoValor}>{filmes.length}</Text>
                     </View>
                     <View style={styles.cardResumo}>
                         <Ionicons name="checkmark-circle-outline" size={24} color="#4CD964" />
                         <Text style={styles.cardResumoLabel}>Assistidos</Text>
-                        <Text style={styles.cardResumoValor}>{filmesCadastrados.filter((f: any) => f.status === 'Assistido').length}</Text>
+                        <Text style={styles.cardResumoValor}>{filmes.filter((filme) => filme.status.toLowerCase() === 'assistido').length}</Text>
                     </View>
                     <View style={styles.cardResumo}>
                         <Ionicons name="time-outline" size={24} color="#007AFF" />
                         <Text style={styles.cardResumoLabel}>Quero assistir</Text>
-                        <Text style={styles.cardResumoValor}>{filmesCadastrados.filter((f: any) => f.status === 'Quero assistir').length}</Text>
+                        <Text style={styles.cardResumoValor}>{filmes.filter((filme) => filme.status.toLowerCase() === 'quero assistir').length}</Text>
                     </View>
                     <View style={styles.cardResumo}>
                         <Ionicons name="heart-outline" size={24} color="#d30046" />
                         <Text style={styles.cardResumoLabel}>Favoritos</Text>
-                        <Text style={styles.cardResumoValor}>{filmesCadastrados.filter((f: any) => f.favoritado).length}</Text>
+                        <Text style={styles.cardResumoValor}>{filmes.filter((filme) => filme.favoritado).length}</Text>
                     </View>
                 </View>
 
@@ -73,7 +82,7 @@ export default function Home() {
                     {filmesRecentes.map((filme: any) => (
                         <TouchableOpacity key={filme.id} style={styles.cardFilme}
                         onPress={() => navigation.navigate('DetalhesFilme', { id: filme.id })}>
-                            <Image source={filme.imagem} style={styles.capaFilme} />
+                            <Image source={filme.imagem ? { uri: filme.imagem } : require("../../../assets/images/duna.jpg")} style={styles.capaFilme} />
                             <Text style={styles.tituloFilme} numberOfLines={1}>{filme.titulo}</Text>
                             <Text style={styles.anoFilme}>{filme.ano}</Text>
                             <View style={styles.notaContainer}>
@@ -92,7 +101,7 @@ export default function Home() {
                     {filmesFavoritos.map((filme: any) => (
                         <TouchableOpacity key={filme.id} style={styles.cardFilme}
                         onPress={() => navigation.navigate('DetalhesFilme', { id: filme.id })}>
-                            <Image source={filme.imagem} style={styles.capaFilme} />
+                            <Image source={filme.imagem ? { uri: filme.imagem } : require("../../../assets/images/duna.jpg")} style={styles.capaFilme} />
                             <Text style={styles.tituloFilme} numberOfLines={1}>{filme.titulo}</Text>
                             <Text style={styles.anoFilme}>{filme.ano}</Text>
                             <View style={styles.notaContainer}>
@@ -127,3 +136,4 @@ export default function Home() {
         </View>
     );
 }
+
